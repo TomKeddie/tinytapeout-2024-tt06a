@@ -1,18 +1,11 @@
-# Makefile
-# See https://docs.cocotb.org/en/stable/quickstart.html for more info
+PROJ = top_icebreaker
 
-# defaults
-SIM ?= icarus
-TOPLEVEL_LANG ?= verilog
+PIN_DEF = icebreaker-verilog-examples/icebreaker/icebreaker.pcf
+DEVICE = up5k
+PACKAGE = sg48
 
-VERILOG_SOURCES += $(PWD)/tb.v $(PWD)/vga.v
+ADD_SRC = vga.v
 
-# TOPLEVEL is the name of the toplevel module in your Verilog or VHDL file
-TOPLEVEL = tb
+prog: iceprog
 
-# MODULE is the basename of the Python test file
-MODULE = test
-
-# include cocotb's make rules to take care of the simulator setup
-include $(shell cocotb-config --makefiles)/Makefile.sim
-
+include icebreaker-verilog-examples/main.mk

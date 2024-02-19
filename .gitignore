@@ -13,3 +13,7 @@ src/top_icebreaker.asc
 src/top_icebreaker.bin
 src/top_icebreaker.json
 src/top_icebreaker.log
+test/__pycache__/
+test/sim_build
+test/results.xml
+
