@@ -367,118 +367,128 @@ module vga(
       if (count_v_score_update_0) begin
 	 // first row
 	 case(score_l)
-           0: score_l_pixels       <= 3'b111;
-           1: score_l_pixels       <= 3'b010;
-           2: score_l_pixels       <= 3'b111;
-           3: score_l_pixels       <= 3'b111;
-           4: score_l_pixels       <= 3'b101;
-           5: score_l_pixels       <= 3'b111;
+           0,10: score_l_pixels       <= 3'b111;
+           1,11: score_l_pixels       <= 3'b010;
+           2,12: score_l_pixels       <= 3'b111;
+           3,13: score_l_pixels       <= 3'b111;
+           4,14: score_l_pixels       <= 3'b101;
+           5,15: score_l_pixels       <= 3'b111;
            6: score_l_pixels       <= 3'b111;
            7: score_l_pixels       <= 3'b111;
            8: score_l_pixels       <= 3'b111;
+	   default: score_l_pixels <= 3'b111;
 	 endcase
 	 case(score_r)
-           0: score_r_pixels       <= 3'b111;
-           1: score_r_pixels       <= 3'b010;
-           2: score_r_pixels       <= 3'b111;
-           3: score_r_pixels       <= 3'b111;
-           4: score_r_pixels       <= 3'b101;
-           5: score_r_pixels       <= 3'b111;
-           6: score_r_pixels       <= 3'b111;
-           7: score_r_pixels       <= 3'b111;
-           8: score_r_pixels       <= 3'b111;
+           0,10: score_r_pixels       <= 3'b111;
+           1,11: score_r_pixels       <= 3'b010;
+           2,12: score_r_pixels       <= 3'b111;
+           3,13: score_r_pixels       <= 3'b111;
+           4,14: score_r_pixels       <= 3'b101;
+           5,15: score_r_pixels       <= 3'b111;
+           6:    score_r_pixels       <= 3'b111;
+           7:    score_r_pixels       <= 3'b111;
+           8:    score_r_pixels       <= 3'b111;
+	   default: score_r_pixels    <= 3'b111;
 	 endcase
       end else if (count_v_score_update_1) begin
 	 case(score_l)
-           0: score_l_pixels       <= 3'b101;
-           1: score_l_pixels       <= 3'b010;
-           2: score_l_pixels       <= 3'b001;
-           3: score_l_pixels       <= 3'b001;
-           4: score_l_pixels       <= 3'b101;
-           5: score_l_pixels       <= 3'b100;
-           6: score_l_pixels       <= 3'b100;
-           7: score_l_pixels       <= 3'b001;
-           8: score_r_pixels       <= 3'b101;
+           0,10: score_l_pixels       <= 3'b101;
+           1,11: score_l_pixels       <= 3'b010;
+           2,12: score_l_pixels       <= 3'b001;
+           3,13: score_l_pixels       <= 3'b001;
+           4,14: score_l_pixels       <= 3'b101;
+           5,15: score_l_pixels       <= 3'b100;
+           6: score_l_pixels          <= 3'b100;
+           7: score_l_pixels          <= 3'b001;
+           8: score_l_pixels          <= 3'b101;
+           default: score_l_pixels    <= 3'b101;
 	 endcase
 	 case(score_r)
-           0: score_r_pixels       <= 3'b101;
-           1: score_r_pixels       <= 3'b010;
-           2: score_r_pixels       <= 3'b001;
-           3: score_r_pixels       <= 3'b001;
-           4: score_r_pixels       <= 3'b101;
-           5: score_r_pixels       <= 3'b100;
-           6: score_r_pixels       <= 3'b100;
-           7: score_r_pixels       <= 3'b001;
-           8: score_r_pixels       <= 3'b101;
+           0,10: score_r_pixels       <= 3'b101;
+           1,11: score_r_pixels       <= 3'b010;
+           2,12: score_r_pixels       <= 3'b001;
+           3,13: score_r_pixels       <= 3'b001;
+           4,14: score_r_pixels       <= 3'b101;
+           5,15: score_r_pixels       <= 3'b100;
+           6: score_r_pixels          <= 3'b100;
+           7: score_r_pixels          <= 3'b001;
+           8: score_r_pixels          <= 3'b101;
+	   default: score_r_pixels    <= 3'b101;
 	 endcase
       end else if (count_v_score_update_2) begin
 	 case(score_l)
-           0: score_l_pixels       <= 3'b101;
-           1: score_l_pixels       <= 3'b010;
-           2: score_l_pixels       <= 3'b111;
-           3: score_l_pixels       <= 3'b111;
-           4: score_l_pixels       <= 3'b111;
-           5: score_l_pixels       <= 3'b111;
-           6: score_l_pixels       <= 3'b111;
-           7: score_l_pixels       <= 3'b001;
-           8: score_r_pixels       <= 3'b111;
+           0,10: score_l_pixels       <= 3'b101;
+           1,11: score_l_pixels       <= 3'b010;
+           2,12: score_l_pixels       <= 3'b111;
+           3,13: score_l_pixels       <= 3'b111;
+           4,14: score_l_pixels       <= 3'b111;
+           5,15: score_l_pixels       <= 3'b111;
+           6: score_l_pixels          <= 3'b111;
+           7: score_l_pixels          <= 3'b001;
+           8: score_l_pixels          <= 3'b111;
+           default: score_l_pixels    <= 3'b111;
 	 endcase
 	 case(score_r)
-           0: score_r_pixels       <= 3'b101;
-           1: score_r_pixels       <= 3'b010;
-           2: score_r_pixels       <= 3'b111;
-           3: score_r_pixels       <= 3'b111;
-           4: score_r_pixels       <= 3'b111;
-           5: score_r_pixels       <= 3'b111;
-           6: score_r_pixels       <= 3'b111;
-           7: score_r_pixels       <= 3'b001;
-           8: score_r_pixels       <= 3'b111;
+           0,10: score_r_pixels       <= 3'b101;
+           1,11: score_r_pixels       <= 3'b010;
+           2,12: score_r_pixels       <= 3'b111;
+           3,13: score_r_pixels       <= 3'b111;
+           4,14: score_r_pixels       <= 3'b111;
+           5,15: score_r_pixels       <= 3'b111;
+           6: score_r_pixels          <= 3'b111;
+           7: score_r_pixels          <= 3'b001;
+           8: score_r_pixels          <= 3'b111;
+           default: score_r_pixels    <= 3'b111;
 	 endcase
       end else if (count_v_score_update_3) begin
 	 case(score_l)
-           0: score_l_pixels       <= 3'b101;
-           1: score_l_pixels       <= 3'b010;
-           2: score_l_pixels       <= 3'b100;
-           3: score_l_pixels       <= 3'b001;
-           4: score_l_pixels       <= 3'b001;
-           5: score_l_pixels       <= 3'b001;
-           6: score_l_pixels       <= 3'b101;
-           7: score_l_pixels       <= 3'b001;
-           8: score_r_pixels       <= 3'b101;
+           0,10: score_l_pixels       <= 3'b101;
+           1,11: score_l_pixels       <= 3'b010;
+           2,12: score_l_pixels       <= 3'b100;
+           3,13: score_l_pixels       <= 3'b001;
+           4,14: score_l_pixels       <= 3'b001;
+           5,15: score_l_pixels       <= 3'b001;
+           6: score_l_pixels          <= 3'b101;
+           7: score_l_pixels          <= 3'b001;
+           8: score_l_pixels          <= 3'b101;
+           default: score_l_pixels    <= 3'b001;
 	 endcase
 	 case(score_r)
-           0: score_r_pixels       <= 3'b101;
-           1: score_r_pixels       <= 3'b010;
-           2: score_r_pixels       <= 3'b100;
-           3: score_r_pixels       <= 3'b001;
-           4: score_r_pixels       <= 3'b001;
-           5: score_r_pixels       <= 3'b001;
-           6: score_r_pixels       <= 3'b101;
-           7: score_r_pixels       <= 3'b001;
-           8: score_r_pixels       <= 3'b101;
+           0,10: score_r_pixels       <= 3'b101;
+           1,11: score_r_pixels       <= 3'b010;
+           2,12: score_r_pixels       <= 3'b100;
+           3,13: score_r_pixels       <= 3'b001;
+           4,14: score_r_pixels       <= 3'b001;
+           5,15: score_r_pixels       <= 3'b001;
+           6: score_r_pixels          <= 3'b101;
+           7: score_r_pixels          <= 3'b001;
+           8: score_r_pixels          <= 3'b101;
+           default: score_r_pixels    <= 3'b001;
 	 endcase
       end else if (count_v_score_update_4) begin
 	 case(score_l)
-           0: score_l_pixels       <= 3'b111;
-           1: score_l_pixels       <= 3'b010;
-           2: score_l_pixels       <= 3'b111;
-           3: score_l_pixels       <= 3'b111;
-           4: score_l_pixels       <= 3'b001;
-           5: score_l_pixels       <= 3'b111;
-           6: score_l_pixels       <= 3'b111;
-           7: score_l_pixels       <= 3'b001;
-           8: score_r_pixels       <= 3'b111;
+           0,10: score_l_pixels       <= 3'b111;
+           1,11: score_l_pixels       <= 3'b010;
+           2,12: score_l_pixels       <= 3'b111;
+           3,13: score_l_pixels       <= 3'b111;
+           4,14: score_l_pixels       <= 3'b001;
+           5,15: score_l_pixels       <= 3'b111;
+           6: score_l_pixels          <= 3'b111;
+           7: score_l_pixels          <= 3'b001;
+           8: score_l_pixels          <= 3'b111;
+           default: score_l_pixels    <= 3'b001;
 	 endcase
 	 case(score_r)
-           0: score_r_pixels       <= 3'b111;
-           1: score_r_pixels       <= 3'b010;
-           2: score_r_pixels       <= 3'b111;
-           3: score_r_pixels       <= 3'b111;
-           4: score_r_pixels       <= 3'b001;
-           5: score_r_pixels       <= 3'b111;
-           6: score_r_pixels       <= 3'b111;
-           7: score_r_pixels       <= 3'b001;
-           8: score_r_pixels       <= 3'b111;
+           0,10: score_r_pixels       <= 3'b111;
+           1,11: score_r_pixels       <= 3'b010;
+           2,12: score_r_pixels       <= 3'b111;
+           3,13: score_r_pixels       <= 3'b111;
+           4,14: score_r_pixels       <= 3'b001;
+           5,15: score_r_pixels       <= 3'b111;
+           6: score_r_pixels          <= 3'b111;
+           7: score_r_pixels          <= 3'b001;
+           8: score_r_pixels          <= 3'b111;
+           default: score_r_pixels    <= 3'b001;
 	 endcase
       end
    end // score pixels
