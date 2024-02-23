@@ -70,13 +70,11 @@ module vga(
    reg		  count_h_score_r_2;
    // 2^10 = 1024
    reg [9:0]	  count_v;
-   reg		  count_v_paddle_r;
    reg		  count_v_score_update_0;
    reg		  count_v_score_update_1;
    reg		  count_v_score_update_2;
    reg		  count_v_score_update_3;
    reg		  count_v_score_update_4;
-   reg		  count_v_score;
    
    reg [8:0]	  paddle_l_pos_v;
    reg [8:0]	  paddle_r_pos_v;
@@ -147,17 +145,17 @@ module vga(
                 // left paddle
                 (count_h_paddle_l && count_v >= (paddle_l_pos_v-paddle_size_v/2) && count_v < (paddle_l_pos_v+paddle_size_v/2)-1) ? 1'b1 :
                 // right paddle
-                (count_h_paddle_r && count_v_paddle_r) ? 1'b1 :
+                (count_h_paddle_r && count_v >= (paddle_r_pos_v-paddle_size_v/2) && count_v < (paddle_r_pos_v+paddle_size_v/2)-1) ? 1'b1 :
                 // ball
                 (count_h_ball && count_v > (ball_pos_v-ball_size_v/2) && count_v < (ball_pos_v+ball_size_v/2)) ? 1'b1 :
                 // left score
-                (hide_l == 1'b0 && count_h_score_l_0 && count_v_score) ? score_l_pixels[2] :
-                (hide_l == 1'b0 && count_h_score_l_1 && count_v_score) ? score_l_pixels[1] :
-                (hide_l == 1'b0 && count_h_score_l_2 && count_v_score) ? score_l_pixels[0] :
+                (hide_l == 1'b0 && count_h_score_l_0 && count_v >= score_pos_v+0*score_unit && count_v < score_pos_v+5*score_unit) ? score_l_pixels[2] :
+                (hide_l == 1'b0 && count_h_score_l_1 && count_v >= score_pos_v+0*score_unit && count_v < score_pos_v+5*score_unit) ? score_l_pixels[1] :
+                (hide_l == 1'b0 && count_h_score_l_2 && count_v >= score_pos_v+0*score_unit && count_v < score_pos_v+5*score_unit) ? score_l_pixels[0] :
                 // right score
-                (hide_r == 1'b0 && count_h_score_r_0 && count_v_score) ? score_r_pixels[2] :
-                (hide_r == 1'b0 && count_h_score_r_1 && count_v_score) ? score_r_pixels[1] :
-                (hide_r == 1'b0 && count_h_score_r_2 && count_v_score) ? score_r_pixels[0] :
+                (hide_r == 1'b0 && count_h_score_r_0 && count_v >= score_pos_v+0*score_unit && count_v < score_pos_v+5*score_unit) ? score_r_pixels[2] :
+                (hide_r == 1'b0 && count_h_score_r_1 && count_v >= score_pos_v+0*score_unit && count_v < score_pos_v+5*score_unit) ? score_r_pixels[1] :
+                (hide_r == 1'b0 && count_h_score_r_2 && count_v >= score_pos_v+0*score_unit && count_v < score_pos_v+5*score_unit) ? score_r_pixels[0] :
                 // background
                 1'b0;
 
@@ -238,17 +236,6 @@ module vga(
 	 if (count_v < v_visible) begin
             // vertical visible
             count_v <= count_v + 1;
-            // pipelined left paddle vertical
-            if (count_v >= (paddle_r_pos_v-paddle_size_v/2) && count_v < (paddle_r_pos_v+paddle_size_v/2)-1) begin
-               count_v_paddle_r <= 1'b1;
-            end else begin
-               count_v_paddle_r <= 1'b0;
-            end
-            if (count_v >= score_pos_v+0*score_unit && count_v < score_pos_v+5*score_unit) begin
-               count_v_score <= 1'b1;
-            end else begin
-               count_v_score <= 1'b0;
-            end
             // pipelined score vertical
             if (count_v == score_pos_v+0*score_unit-1) begin
                count_v_score_update_0 <= 1'b1;
