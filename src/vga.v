@@ -70,7 +70,6 @@ module vga(
    reg		  count_h_score_r_2;
    // 2^10 = 1024
    reg [9:0]	  count_v;
-   reg		  count_v_paddle_l;
    reg		  count_v_paddle_r;
    reg		  count_v_score_update_0;
    reg		  count_v_score_update_1;
@@ -146,7 +145,7 @@ module vga(
                 // dashed net down the centre
                 (count_h > 317-1 && count_h < 323-1 && count_v[4] == 1'b0) ? 1'b1 :
                 // left paddle
-                (count_h_paddle_l && count_v_paddle_l) ? 1'b1 :
+                (count_h_paddle_l && count_v >= (paddle_l_pos_v-paddle_size_v/2) && count_v < (paddle_l_pos_v+paddle_size_v/2)-1) ? 1'b1 :
                 // right paddle
                 (count_h_paddle_r && count_v_paddle_r) ? 1'b1 :
                 // ball
@@ -240,11 +239,6 @@ module vga(
             // vertical visible
             count_v <= count_v + 1;
             // pipelined left paddle vertical
-            if (count_v >= (paddle_l_pos_v-paddle_size_v/2) && count_v < (paddle_l_pos_v+paddle_size_v/2)-1) begin
-               count_v_paddle_l <= 1'b1;
-            end else begin
-               count_v_paddle_l <= 1'b0;
-            end
             if (count_v >= (paddle_r_pos_v-paddle_size_v/2) && count_v < (paddle_r_pos_v+paddle_size_v/2)-1) begin
                count_v_paddle_r <= 1'b1;
             end else begin
