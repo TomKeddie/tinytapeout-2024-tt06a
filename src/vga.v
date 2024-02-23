@@ -70,11 +70,6 @@ module vga(
    reg		  count_h_score_r_2;
    // 2^10 = 1024
    reg [9:0]	  count_v;
-   reg		  count_v_score_update_0;
-   reg		  count_v_score_update_1;
-   reg		  count_v_score_update_2;
-   reg		  count_v_score_update_3;
-   reg		  count_v_score_update_4;
    
    reg [8:0]	  paddle_l_pos_v;
    reg [8:0]	  paddle_r_pos_v;
@@ -236,32 +231,6 @@ module vga(
 	 if (count_v < v_visible) begin
             // vertical visible
             count_v <= count_v + 1;
-            // pipelined score vertical
-            if (count_v == score_pos_v+0*score_unit-1) begin
-               count_v_score_update_0 <= 1'b1;
-            end else begin
-               count_v_score_update_0 <= 1'b0;
-            end
-            if (count_v == score_pos_v+1*score_unit-1) begin
-               count_v_score_update_1 <= 1'b1;
-            end else begin
-               count_v_score_update_1 <= 1'b0;
-            end
-            if (count_v == score_pos_v+2*score_unit-1) begin
-               count_v_score_update_2 <= 1'b1;
-            end else begin
-               count_v_score_update_2 <= 1'b0;
-            end
-            if (count_v == score_pos_v+3*score_unit-1) begin
-               count_v_score_update_3 <= 1'b1;
-            end else begin
-               count_v_score_update_3 <= 1'b0;
-            end
-            if (count_v == score_pos_v+4*score_unit-1) begin
-               count_v_score_update_4 <= 1'b1;
-            end else begin
-               count_v_score_update_4 <= 1'b0;
-            end
 	 end else if (count_v < v_backporch) begin
             count_v <= count_v + 1;
             blank_v <= 1'b1;
@@ -345,7 +314,7 @@ module vga(
 
    // score pixels
    always @ (posedge clk) begin
-      if (count_v_score_update_0) begin
+      if (count_v == score_pos_v+0*score_unit-1) begin
 	 // first row
 	 case(score_l)
            0,10: score_l_pixels       <= 3'b111;
@@ -371,7 +340,7 @@ module vga(
            8:    score_r_pixels       <= 3'b111;
 	   default: score_r_pixels    <= 3'b111;
 	 endcase
-      end else if (count_v_score_update_1) begin
+      end else if (count_v == score_pos_v+1*score_unit-1) begin
 	 case(score_l)
            0,10: score_l_pixels       <= 3'b101;
            1,11: score_l_pixels       <= 3'b010;
@@ -396,7 +365,7 @@ module vga(
            8: score_r_pixels          <= 3'b101;
 	   default: score_r_pixels    <= 3'b101;
 	 endcase
-      end else if (count_v_score_update_2) begin
+      end else if (count_v == score_pos_v+2*score_unit-1) begin
 	 case(score_l)
            0,10: score_l_pixels       <= 3'b101;
            1,11: score_l_pixels       <= 3'b010;
@@ -421,7 +390,7 @@ module vga(
            8: score_r_pixels          <= 3'b111;
            default: score_r_pixels    <= 3'b111;
 	 endcase
-      end else if (count_v_score_update_3) begin
+      end else if (count_v == score_pos_v+3*score_unit-1) begin
 	 case(score_l)
            0,10: score_l_pixels       <= 3'b101;
            1,11: score_l_pixels       <= 3'b010;
@@ -446,7 +415,7 @@ module vga(
            8: score_r_pixels          <= 3'b101;
            default: score_r_pixels    <= 3'b001;
 	 endcase
-      end else if (count_v_score_update_4) begin
+      end else if (count_v == score_pos_v+4*score_unit-1) begin
 	 case(score_l)
            0,10: score_l_pixels       <= 3'b111;
            1,11: score_l_pixels       <= 3'b010;
