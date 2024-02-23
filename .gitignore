@@ -16,4 +16,4 @@ src/top_icebreaker.log
 test/__pycache__/
 test/sim_build
 test/results.xml
-
+src/vivado/arty/
