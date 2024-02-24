@@ -70,10 +70,10 @@ module vga(
    reg [2:0]	  ball_ratio;
    reg [3:0]	  ball_angle; // msb is up(1)/down(0)
 
-   reg [3:0]	  score_l;
+   reg [4:0]	  score_l;
    reg [2:0]	  score_l_unit_pixels;
    reg		  score_l_ten_enable;
-   reg [3:0]	  score_r;
+   reg [4:0]	  score_r;
    reg [2:0]	  score_r_unit_pixels;
    reg		  score_r_ten_enable;
    
@@ -290,9 +290,9 @@ module vga(
            3,13: score_l_unit_pixels       <= 3'b111;
            4,14: score_l_unit_pixels       <= 3'b101;
            5,15: score_l_unit_pixels       <= 3'b111;
-           6: score_l_unit_pixels       <= 3'b111;
-           7: score_l_unit_pixels       <= 3'b111;
-           8: score_l_unit_pixels       <= 3'b111;
+           6,16: score_l_unit_pixels       <= 3'b111;
+           7,17: score_l_unit_pixels       <= 3'b111;
+           8,18: score_l_unit_pixels       <= 3'b111;
 	   default: score_l_unit_pixels <= 3'b111;
 	 endcase
 	 case(score_r)
@@ -302,9 +302,9 @@ module vga(
            3,13: score_r_unit_pixels       <= 3'b111;
            4,14: score_r_unit_pixels       <= 3'b101;
            5,15: score_r_unit_pixels       <= 3'b111;
-           6:    score_r_unit_pixels       <= 3'b111;
-           7:    score_r_unit_pixels       <= 3'b111;
-           8:    score_r_unit_pixels       <= 3'b111;
+           6,16:  score_r_unit_pixels       <= 3'b111;
+           7,17:    score_r_unit_pixels       <= 3'b111;
+           8,18:    score_r_unit_pixels       <= 3'b111;
 	   default: score_r_unit_pixels    <= 3'b111;
 	 endcase
       end else if (count_v == score_pos_v+1*score_unit-1) begin
@@ -315,9 +315,9 @@ module vga(
            3,13: score_l_unit_pixels       <= 3'b001;
            4,14: score_l_unit_pixels       <= 3'b101;
            5,15: score_l_unit_pixels       <= 3'b100;
-           6: score_l_unit_pixels          <= 3'b100;
-           7: score_l_unit_pixels          <= 3'b001;
-           8: score_l_unit_pixels          <= 3'b101;
+           6,16:  score_l_unit_pixels       <= 3'b100;
+           7,17:    score_l_unit_pixels       <= 3'b001;
+           8,18:    score_l_unit_pixels       <= 3'b101;
            default: score_l_unit_pixels    <= 3'b101;
 	 endcase
 	 case(score_r)
@@ -327,9 +327,9 @@ module vga(
            3,13: score_r_unit_pixels       <= 3'b001;
            4,14: score_r_unit_pixels       <= 3'b101;
            5,15: score_r_unit_pixels       <= 3'b100;
-           6: score_r_unit_pixels          <= 3'b100;
-           7: score_r_unit_pixels          <= 3'b001;
-           8: score_r_unit_pixels          <= 3'b101;
+           6,16: score_r_unit_pixels       <= 3'b100;
+           7,17: score_r_unit_pixels       <= 3'b001;
+           8,18: score_r_unit_pixels       <= 3'b101;
 	   default: score_r_unit_pixels    <= 3'b101;
 	 endcase
       end else if (count_v == score_pos_v+2*score_unit-1) begin
@@ -340,9 +340,9 @@ module vga(
            3,13: score_l_unit_pixels       <= 3'b111;
            4,14: score_l_unit_pixels       <= 3'b111;
            5,15: score_l_unit_pixels       <= 3'b111;
-           6: score_l_unit_pixels          <= 3'b111;
-           7: score_l_unit_pixels          <= 3'b001;
-           8: score_l_unit_pixels          <= 3'b111;
+           6,16: score_l_unit_pixels       <= 3'b111;
+           7,17: score_l_unit_pixels       <= 3'b001;
+           8,18: score_l_unit_pixels       <= 3'b111;
            default: score_l_unit_pixels    <= 3'b111;
 	 endcase
 	 case(score_r)
@@ -352,9 +352,9 @@ module vga(
            3,13: score_r_unit_pixels       <= 3'b111;
            4,14: score_r_unit_pixels       <= 3'b111;
            5,15: score_r_unit_pixels       <= 3'b111;
-           6: score_r_unit_pixels          <= 3'b111;
-           7: score_r_unit_pixels          <= 3'b001;
-           8: score_r_unit_pixels          <= 3'b111;
+           6,16: score_r_unit_pixels       <= 3'b111;
+           7,17: score_r_unit_pixels       <= 3'b001;
+           8,18: score_r_unit_pixels       <= 3'b111;
            default: score_r_unit_pixels    <= 3'b111;
 	 endcase
       end else if (count_v == score_pos_v+3*score_unit-1) begin
@@ -365,9 +365,9 @@ module vga(
            3,13: score_l_unit_pixels       <= 3'b001;
            4,14: score_l_unit_pixels       <= 3'b001;
            5,15: score_l_unit_pixels       <= 3'b001;
-           6: score_l_unit_pixels          <= 3'b101;
-           7: score_l_unit_pixels          <= 3'b001;
-           8: score_l_unit_pixels          <= 3'b101;
+           6,16: score_l_unit_pixels       <= 3'b101;
+           7,17: score_l_unit_pixels       <= 3'b001;
+           8,18: score_l_unit_pixels       <= 3'b101;
            default: score_l_unit_pixels    <= 3'b001;
 	 endcase
 	 case(score_r)
@@ -377,9 +377,9 @@ module vga(
            3,13: score_r_unit_pixels       <= 3'b001;
            4,14: score_r_unit_pixels       <= 3'b001;
            5,15: score_r_unit_pixels       <= 3'b001;
-           6: score_r_unit_pixels          <= 3'b101;
-           7: score_r_unit_pixels          <= 3'b001;
-           8: score_r_unit_pixels          <= 3'b101;
+           6,16: score_r_unit_pixels       <= 3'b101;
+           7,17: score_r_unit_pixels       <= 3'b001;
+           8,18: score_r_unit_pixels       <= 3'b101;
            default: score_r_unit_pixels    <= 3'b001;
 	 endcase
       end else if (count_v == score_pos_v+4*score_unit-1) begin
@@ -390,9 +390,9 @@ module vga(
            3,13: score_l_unit_pixels       <= 3'b111;
            4,14: score_l_unit_pixels       <= 3'b001;
            5,15: score_l_unit_pixels       <= 3'b111;
-           6: score_l_unit_pixels          <= 3'b111;
-           7: score_l_unit_pixels          <= 3'b001;
-           8: score_l_unit_pixels          <= 3'b111;
+           6,16: score_l_unit_pixels       <= 3'b111;
+           7,17: score_l_unit_pixels       <= 3'b001;
+           8,18: score_l_unit_pixels       <= 3'b111;
            default: score_l_unit_pixels    <= 3'b001;
 	 endcase
 	 case(score_r)
@@ -402,9 +402,9 @@ module vga(
            3,13: score_r_unit_pixels       <= 3'b111;
            4,14: score_r_unit_pixels       <= 3'b001;
            5,15: score_r_unit_pixels       <= 3'b111;
-           6: score_r_unit_pixels          <= 3'b111;
-           7: score_r_unit_pixels          <= 3'b001;
-           8: score_r_unit_pixels          <= 3'b111;
+           6,16: score_r_unit_pixels       <= 3'b111;
+           7,17: score_r_unit_pixels       <= 3'b001;
+           8,18: score_r_unit_pixels       <= 3'b111;
            default: score_r_unit_pixels    <= 3'b001;
 	 endcase
       end
@@ -418,12 +418,12 @@ module vga(
 	 ball_motion_l <= 1'b1;
 	 ball_angle    <= 4'b1001;
 	 ball_ratio    <= 0;
-	 score_l       <= 4'b0;
-	 score_r       <= 4'b0;
+	 score_l       <= 5'b0;
+	 score_r       <= 5'b0;
       end else begin
 	 if (score_reset == 1'b1) begin
-            score_l <= 4'b0;
-            score_r <= 4'b0;
+            score_l <= 5'b0;
+            score_r <= 5'b0;
 	 end
 	 if (interval_counter == 0) begin
             // is the ball moving left
@@ -434,7 +434,7 @@ module vga(
 		  if (ball_pos_v >= paddle_l_pos_v-paddle_size_v/2 && ball_pos_v <= paddle_l_pos_v+paddle_size_v/2) begin
 		     // bounce off left paddle
 		     ball_motion_l        <= 1'b0;
-		  end else if (score_r != 4'b1111) begin
+		  end else if (score_r != 19) begin
 		     // right side serves
 		     ball_pos_h         <= paddle_r_pos_h-1;
 		     ball_pos_v         <= paddle_r_pos_v;
@@ -477,7 +477,7 @@ module vga(
 		  if (ball_pos_v >= paddle_r_pos_v-paddle_size_v/2 && ball_pos_v <= paddle_r_pos_v+paddle_size_v/2) begin
 		     // bounce off right paddle
 		     ball_motion_l        <= 1'b1;
-		  end else if (score_l != 4'b1111) begin
+		  end else if (score_l != 19) begin
 		     // left side serves
 		     ball_pos_h <= paddle_l_pos_h-1;
 		     ball_pos_v <= paddle_l_pos_v;
