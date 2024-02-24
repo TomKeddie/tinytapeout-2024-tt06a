@@ -96,6 +96,9 @@ module vga(
    reg		  right_down_pressed;
    reg [24:0]	  interval_counter;
 
+   reg	  speed_lsb_1d;
+   reg	  speed_msb_1d;
+   
    assign r0 = red;
    assign r1 = red;
    assign r2 = red;
@@ -206,11 +209,17 @@ module vga(
    always @ (posedge clk) begin
       if (rst) begin
 	 interval_counter <= 0;
+	 speed_msb_1d <= 1'b0;
+	 speed_lsb_1d <= 1'b0;
       end else begin
-	 if (speed_lsb == 1'b0 && speed_msb == 1'b0 && interval_counter != 251750 ||
-             speed_lsb == 1'b1 && speed_msb == 1'b0 && interval_counter != 251750*7/9 ||
-             speed_lsb == 1'b0 && speed_msb == 1'b1 &&  interval_counter != 251750*6/9 ||
-             speed_lsb == 1'b1 && speed_msb == 1'b1 &&  interval_counter != 251750*4/9) begin
+	 speed_msb_1d <= speed_msb;
+	 speed_lsb_1d <= speed_lsb;
+	 if (speed_lsb != speed_lsb_1d || speed_msb != speed_msb_1d) begin
+	    interval_counter <= 0;
+	 end else if (speed_lsb == 1'b0 && speed_msb == 1'b0 && interval_counter != 251750 ||
+             speed_lsb == 1'b1 && speed_msb == 1'b0 && interval_counter != 251750*6/9 ||
+             speed_lsb == 1'b0 && speed_msb == 1'b1 &&  interval_counter != 251750*4/9 ||
+             speed_lsb == 1'b1 && speed_msb == 1'b1 &&  interval_counter != 251750*3/9) begin
             interval_counter <= interval_counter + 1;
 	 end else begin
             interval_counter <= 0;
@@ -276,9 +285,13 @@ module vga(
       end else begin
 	 if (score_l > 9) begin
 	    score_l_ten_enable <= 1'b1;
+	 end else begin
+	    score_l_ten_enable <= 1'b0;
 	 end
 	 if (score_r > 9) begin
 	    score_r_ten_enable <= 1'b1;
+	 end else begin
+	    score_r_ten_enable <= 1'b0;
 	 end
       end
       if (count_v == score_pos_v+0*score_unit-1) begin
@@ -302,9 +315,9 @@ module vga(
            3,13: score_r_unit_pixels       <= 3'b111;
            4,14: score_r_unit_pixels       <= 3'b101;
            5,15: score_r_unit_pixels       <= 3'b111;
-           6,16:  score_r_unit_pixels       <= 3'b111;
-           7,17:    score_r_unit_pixels       <= 3'b111;
-           8,18:    score_r_unit_pixels       <= 3'b111;
+           6,16: score_r_unit_pixels       <= 3'b111;
+           7,17: score_r_unit_pixels       <= 3'b111;
+           8,18: score_r_unit_pixels       <= 3'b111;
 	   default: score_r_unit_pixels    <= 3'b111;
 	 endcase
       end else if (count_v == score_pos_v+1*score_unit-1) begin
@@ -315,9 +328,9 @@ module vga(
            3,13: score_l_unit_pixels       <= 3'b001;
            4,14: score_l_unit_pixels       <= 3'b101;
            5,15: score_l_unit_pixels       <= 3'b100;
-           6,16:  score_l_unit_pixels       <= 3'b100;
-           7,17:    score_l_unit_pixels       <= 3'b001;
-           8,18:    score_l_unit_pixels       <= 3'b101;
+           6,16: score_l_unit_pixels       <= 3'b100;
+           7,17: score_l_unit_pixels       <= 3'b001;
+           8,18: score_l_unit_pixels       <= 3'b101;
            default: score_l_unit_pixels    <= 3'b101;
 	 endcase
 	 case(score_r)
@@ -471,7 +484,7 @@ module vga(
 		  end
                end
             end else begin // if (ball_motion_l == 1'b1)
-               // ball is moving right, is the ball in the right paddle columnx
+               // ball is moving right, is the ball in the right paddle column
                if (ball_pos_h == paddle_r_pos_h-1) begin
 		  // did the ball hit the right paddle
 		  if (ball_pos_v >= paddle_r_pos_v-paddle_size_v/2 && ball_pos_v <= paddle_r_pos_v+paddle_size_v/2) begin
